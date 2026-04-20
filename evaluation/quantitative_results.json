@@ -1,0 +1,82 @@
+[
+  {
+    "product_id": 1,
+    "title": "Women Summer Dress",
+    "baseline_clip": 0.24859683990478515,
+    "improved_clip": 0.2524882316589355,
+    "baseline_ssim": 0.2624418274999882,
+    "improved_ssim": 0.34432673984305256
+  },
+  {
+    "product_id": 2,
+    "title": "Running Shoes",
+    "baseline_clip": 0.28314743041992185,
+    "improved_clip": 0.22734222412109376,
+    "baseline_ssim": 0.09991298857952503,
+    "improved_ssim": 0.17651070334496333
+  },
+  {
+    "product_id": 3,
+    "title": "Coffee Mug",
+    "baseline_clip": 0.3150643730163574,
+    "improved_clip": 0.30088975906372073,
+    "baseline_ssim": 0.45975554283455944,
+    "improved_ssim": 0.731993684236499
+  },
+  {
+    "product_id": 4,
+    "title": "Leather Backpack",
+    "baseline_clip": 0.3045155334472656,
+    "improved_clip": 0.3011640930175781,
+    "baseline_ssim": 0.6140622529360567,
+    "improved_ssim": 0.2577679523757069
+  },
+  {
+    "product_id": 5,
+    "title": "Wrist Watch",
+    "baseline_clip": 0.2675417137145996,
+    "improved_clip": 0.2788386917114258,
+    "baseline_ssim": 0.08803114345750518,
+    "improved_ssim": 0.19089156778213612
+  },
+  {
+    "product_id": 6,
+    "title": "Hoodie",
+    "baseline_clip": 0.3018406867980957,
+    "improved_clip": 0.30136096954345704,
+    "baseline_ssim": 0.41378189351709466,
+    "improved_ssim": 0.4210189745417508
+  },
+  {
+    "product_id": 7,
+    "title": "Sneakers",
+    "baseline_clip": 0.2940150451660156,
+    "improved_clip": 0.259977970123291,
+    "baseline_ssim": 0.17001902980453112,
+    "improved_ssim": 0.34917549670104225
+  },
+  {
+    "product_id": 8,
+    "title": "Handbag",
+    "baseline_clip": 0.289122257232666,
+    "improved_clip": 0.2785832595825195,
+    "baseline_ssim": 0.42161960228915735,
+    "improved_ssim": 0.53974438921539
+  },
+  {
+    "product_id": 9,
+    "title": "Smart Speaker",
+    "baseline_clip": 0.2720429229736328,
+    "improved_clip": 0.2842522621154785,
+    "baseline_ssim": 0.4982540307240986,
+    "improved_ssim": 0.716112480444551
+  },
+  {
+    "product_id": 10,
+    "title": "Wireless Earbuds",
+    "baseline_clip": 0.30713916778564454,
+    "improved_clip": 0.3058477020263672,
+    "baseline_ssim": 0.5697678795586979,
+    "improved_ssim": 0.6914634939412442
+  }
+]
