@@ -3,7 +3,7 @@
 **CS 5542 - Quiz Challenge 1 | Author: Tina Nguyen**
 
 ## 1. Overview
-This repository contains a data-driven image generation system built with **Stable Diffusion**. It takes structured e-commerce product metadata and converts it into high-fidelity, studio-quality images.
+This repository contains a data-driven image generation system built with **Stable Diffusion (DreamShaper 8)**. It takes structured e-commerce product metadata and converts it into high-fidelity, premium studio-quality images.
 
 The project demonstrates how **Structured Prompt Templates** and **Negative Prompting** provides significantly more control over AI outputs compared to naive text prompts, ensuring consistency for commercial applications.
 
@@ -23,7 +23,7 @@ Below is a demonstration of how the **Controlled Generation** (Improved) outperf
 The pipeline follows a structured **Data-to-Prompt** approach evaluating **10 products across 3 seeds per prompt** (yielding 60 images).
 1.  **Data Extraction**: Product attributes (Category, Color, Material, Style) are loaded from `data/products.csv`.
 2.  **Prompt Engine**: A custom Python class (`src/generator.py`) maps these attributes into a detailed "Studio Photography" template.
-3.  **Stable Diffusion Inference**: The system uses the `runwayml/stable-diffusion-v1-5` model via the Hugging Face `diffusers` library.
+3.  **Stable Diffusion Inference**: The system uses the high-performance `Lykon/dreamshaper-8` checkpoint via the Hugging Face `diffusers` library.
 4.  **Quality Control**: Implements standard e-commerce negative prompts to remove watermarks, text, and artifacts.
 
 ---

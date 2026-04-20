@@ -35,7 +35,7 @@ class PromptEngine:
         return "blurry, low quality, distorted, extra limbs, text, watermark, logo, messy background, low resolution, grain, shadows."
 
 class ECommerceGenerator:
-    def __init__(self, model_id="runwayml/stable-diffusion-v1-5", device="cuda"):
+    def __init__(self, model_id="Lykon/dreamshaper-8", device="cuda"):
         self.device = device if torch.cuda.is_available() else "cpu"
         self.model_id = model_id
         self.pipe = None
