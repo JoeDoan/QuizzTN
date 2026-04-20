@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import torch
-from diffusers import StableDiffusionPipeline
+from diffusers import DiffusionPipeline
 from PIL import Image
 
 class PromptEngine:
@@ -35,7 +35,7 @@ class PromptEngine:
         return "blurry, low quality, distorted, extra limbs, text, watermark, logo, messy background, low resolution, grain, shadows."
 
 class ECommerceGenerator:
-    def __init__(self, model_id="Lykon/dreamshaper-8", device="cuda"):
+    def __init__(self, model_id="stabilityai/stable-diffusion-xl-base-1.0", device="cuda"):
         self.device = device if torch.cuda.is_available() else "cpu"
         self.model_id = model_id
         self.pipe = None
@@ -43,11 +43,11 @@ class ECommerceGenerator:
     def load_model(self):
         print(f"Loading model {self.model_id} on {self.device}...")
         if self.device == "cuda":
-            self.pipe = StableDiffusionPipeline.from_pretrained(
-                self.model_id, torch_dtype=torch.float16
+            self.pipe = DiffusionPipeline.from_pretrained(
+                self.model_id, torch_dtype=torch.float16, use_safetensors=True, variant="fp16"
             ).to(self.device)
         else:
-            self.pipe = StableDiffusionPipeline.from_pretrained(self.model_id).to(self.device)
+            self.pipe = DiffusionPipeline.from_pretrained(self.model_id).to(self.device)
         print("Model loaded successfully.")
 
     def generate(self, prompt, neg_prompt=None, seed=42, output_path="output.png"):
