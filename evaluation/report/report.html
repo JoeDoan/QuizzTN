@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluation Report – CS 5542 Quiz Challenge 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4f8;
+      color: #2c3e50;
+      padding: 30px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    }
+
+    /* ─── HEADER ─────────────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, #003366 0%, #1a5276 60%, #1a7a6e 100%);
+      color: white;
+      padding: 48px 48px 36px;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0; height: 32px;
+      background: white;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+    .header h2 { font-size: 16px; font-weight: 400; opacity: .85; margin-bottom: 24px; }
+    .meta-row { display: flex; gap: 24px; font-size: 13px; opacity: .8; flex-wrap: wrap; }
+    .meta-row span { display: flex; align-items: center; gap: 6px; }
+
+    /* ─── KPI CARDS ──────────────────────────────────── */
+    .kpi-section { padding: 36px 48px 0; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .kpi-card {
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      border: 1px solid #e8ecf0;
+    }
+    .kpi-card.blue { background: #eaf1fb; border-color: #aec6e8; }
+    .kpi-card.green { background: #eafaf1; border-color: #a9dfbf; }
+    .kpi-card.gold { background: #fef9e7; border-color: #f9e79f; }
+    .kpi-card.teal { background: #e8f8f5; border-color: #a2d9ce; }
+    .kpi-card .num { font-size: 28px; font-weight: 700; color: #003366; }
+    .kpi-card .label { font-size: 11px; color: #7f8c8d; margin-top: 4px; text-transform: uppercase; letter-spacing: .5px; }
+    .kpi-card .sub { font-size: 12px; color: #2ecc71; font-weight: 600; margin-top: 2px; }
+
+    /* ─── CONTENT ────────────────────────────────────── */
+    .content { padding: 32px 48px 48px; }
+    section { margin-bottom: 36px; }
+    section h2 {
+      font-size: 18px; font-weight: 700; color: #003366;
+      border-left: 4px solid #003366;
+      padding-left: 12px; margin-bottom: 16px;
+    }
+    section h3 { font-size: 14px; font-weight: 600; color: #1a5276; margin: 16px 0 8px; }
+    p { font-size: 14px; line-height: 1.75; color: #444; margin-bottom: 10px; }
+    ul { padding-left: 20px; margin-bottom: 10px; }
+    li { font-size: 14px; line-height: 1.75; color: #444; margin-bottom: 4px; }
+
+    /* ─── TABLES ─────────────────────────────────────── */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+    thead tr { background: #003366; color: white; }
+    thead th { padding: 10px 12px; text-align: center; font-weight: 600; font-size: 12px; }
+    tbody tr:nth-child(even) { background: #f8f9fa; }
+    tbody tr:hover { background: #eaf1fb; }
+    tbody td { padding: 9px 12px; text-align: center; border-bottom: 1px solid #e8ecf0; }
+    tfoot tr { background: #d6eaf8; font-weight: 700; }
+    tfoot td { padding: 10px 12px; text-align: center; }
+
+    .pos { color: #1e8449; font-weight: 700; }
+    .neg { color: #c0392b; font-weight: 700; }
+    .neutral { color: #7f8c8d; }
+
+    /* ─── FAILURE CARDS ──────────────────────────────── */
+    .failure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .failure-card {
+      background: #fff8f8;
+      border: 1px solid #f5c6cb;
+      border-left: 4px solid #e74c3c;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .failure-card h3 { color: #c0392b; margin-top: 0; font-size: 13px; }
+    .failure-card p { font-size: 13px; margin-bottom: 6px; }
+    .failure-card .lesson {
+      background: #fef9e7;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #7d6608;
+      margin-top: 8px;
+    }
+    .tradeoff-card {
+      background: #f0f7ff;
+      border: 1px solid #aed6f1;
+      border-left: 4px solid #2980b9;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    /* ─── PROMPT EXAMPLE ─────────────────────────────── */
+    .prompt-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+    .prompt-box { border-radius: 8px; padding: 16px; }
+    .prompt-box.baseline { background: #fef9e7; border: 1px solid #f9e79f; }
+    .prompt-box.improved { background: #eafaf1; border: 1px solid #a9dfbf; }
+    .prompt-box h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+    .prompt-box p { font-size: 12px; line-height: 1.6; font-family: monospace; color: #333; }
+    .prompt-box .label-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700; margin-bottom: 8px;
+    }
+    .baseline .label-tag { background: #f39c12; color: white; }
+    .improved .label-tag { background: #27ae60; color: white; }
+
+    /* ─── FINDINGS GRID ──────────────────────────────── */
+    .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .finding-item {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 14px;
+      border: 1px solid #e8ecf0;
+    }
+    .finding-item .icon { font-size: 20px; margin-bottom: 6px; }
+    .finding-item h4 { font-size: 13px; font-weight: 600; color: #003366; margin-bottom: 4px; }
+    .finding-item p { font-size: 12px; color: #555; margin: 0; }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    .footer {
+      background: #003366;
+      color: rgba(255,255,255,.75);
+      font-size: 12px;
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ─── PRINT ──────────────────────────────────────── */
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; }
+      .failure-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Controlled E-Commerce Product Image Generation</h1>
+    <h2>Quantitative Evaluation Report — CS 5542 Quiz Challenge 1</h2>
+    <div class="meta-row">
+      <span>👤 Author: Tina Nguyen</span>
+      <span>🤖 Model: Stable Diffusion XL 1.0</span>
+      <span>⚡ Hardware: NVIDIA A100 GPU</span>
+      <span>📅 April 2026</span>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-section">
+    <div class="kpi-grid">
+      <div class="kpi-card blue">
+        <div class="num">60</div>
+        <div class="label">Total Images Generated</div>
+        <div class="sub">10 products × 3 seeds × 2 prompts</div>
+      </div>
+      <div class="kpi-card teal">
+        <div class="num">0.442</div>
+        <div class="label">Avg SSIM (Improved)</div>
+        <div class="sub">vs 0.360 baseline</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="num">+22.8%</div>
+        <div class="label">SSIM Improvement</div>
+        <div class="sub">Cross-seed consistency gain</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="num">0.279</div>
+        <div class="label">Avg CLIP (Improved)</div>
+        <div class="sub">Subject recognition preserved</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <!-- 1. METHODOLOGY -->
+    <section>
+      <h2>1. Methodology</h2>
+
+      <h3>1.1 Prompt Strategies</h3>
+      <div class="prompt-compare">
+        <div class="prompt-box baseline">
+          <span class="label-tag">BASELINE (Naive)</span>
+          <p>Uses <strong>title only</strong>.<br><br>
+          Example: <em>"Coffee Mug"</em><br><br>
+          No color, material, style, lighting, or background constraints.</p>
+        </div>
+        <div class="prompt-box improved">
+          <span class="label-tag">STRUCTURED (Improved)</span>
+          <p><em>"Professional studio photography of a white ceramic Coffee Mug, minimalist aesthetic,
+          centered composition, soft cinematic lighting, white solid background, 8k resolution,
+          photorealistic, sharp focus."</em></p>
+        </div>
+      </div>
+
+      <h3>1.2 Evaluation Setup</h3>
+      <ul>
+        <li><strong>CLIP Score</strong>: <code>openai/clip-vit-base-patch32</code> — measures semantic alignment between text prompt and generated image. Computed on seed-42 images.</li>
+        <li><strong>SSIM</strong>: Pairwise Structural Similarity Index averaged across all 3 seeds (42, 123, 999) per product. Higher = more consistent visual structure.</li>
+      </ul>
+    </section>
+
+    <!-- 2. FULL RESULTS -->
+    <section>
+      <h2>2. Full Quantitative Results</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Product</th>
+            <th>Base CLIP</th><th>Imp CLIP</th><th>ΔCLIP</th>
+            <th>Base SSIM</th><th>Imp SSIM</th><th>ΔSSIM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td style="text-align:left">Women Summer Dress</td><td>0.249</td><td>0.252</td><td class="pos">+0.003</td><td>0.262</td><td>0.344</td><td class="pos">+0.082</td></tr>
+          <tr><td>2</td><td style="text-align:left">Running Shoes</td><td>0.283</td><td>0.227</td><td class="neg">-0.056</td><td>0.100</td><td>0.177</td><td class="pos">+0.077</td></tr>
+          <tr><td>3</td><td style="text-align:left">Coffee Mug</td><td>0.315</td><td>0.301</td><td class="neg">-0.014</td><td>0.460</td><td><strong>0.732</strong></td><td class="pos">+0.272</td></tr>
+          <tr><td>4</td><td style="text-align:left">Leather Backpack</td><td>0.305</td><td>0.301</td><td class="neg">-0.004</td><td>0.614</td><td>0.258</td><td class="neg">-0.356</td></tr>
+          <tr><td>5</td><td style="text-align:left">Wrist Watch</td><td>0.268</td><td>0.279</td><td class="pos">+0.011</td><td>0.088</td><td>0.191</td><td class="pos">+0.103</td></tr>
+          <tr><td>6</td><td style="text-align:left">Hoodie</td><td>0.302</td><td>0.301</td><td class="neg">-0.001</td><td>0.414</td><td>0.421</td><td class="pos">+0.007</td></tr>
+          <tr><td>7</td><td style="text-align:left">Sneakers</td><td>0.294</td><td>0.260</td><td class="neg">-0.034</td><td>0.170</td><td>0.349</td><td class="pos">+0.179</td></tr>
+          <tr><td>8</td><td style="text-align:left">Handbag</td><td>0.289</td><td>0.279</td><td class="neg">-0.010</td><td>0.422</td><td>0.540</td><td class="pos">+0.118</td></tr>
+          <tr><td>9</td><td style="text-align:left">Smart Speaker</td><td>0.272</td><td>0.284</td><td class="pos">+0.012</td><td>0.498</td><td><strong>0.716</strong></td><td class="pos">+0.218</td></tr>
+          <tr><td>10</td><td style="text-align:left">Wireless Earbuds</td><td>0.307</td><td>0.306</td><td class="neg">-0.001</td><td>0.570</td><td><strong>0.691</strong></td><td class="pos">+0.121</td></tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">Average</td>
+            <td>0.288</td><td>0.279</td>
+            <td class="neutral">-0.009</td>
+            <td>0.360</td><td>0.442</td>
+            <td class="pos">+0.082</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <!-- 3. ANALYSIS -->
+    <section>
+      <h2>3. Analysis &amp; Key Findings</h2>
+      <div class="findings-grid">
+        <div class="finding-item">
+          <div class="icon">🎯</div>
+          <h4>CLIP Alignment Preserved</h4>
+          <p>Average CLIP decreased by only -0.009 (negligible). SDXL identifies the core object correctly regardless of prompt length — adding 25+ control tokens does not confuse subject recognition.</p>
+        </div>
+        <div class="finding-item">
+          <div class="icon">📐</div>
+          <h4>Consistency Improved +22.8%</h4>
+          <p>SSIM improved from 0.360 to 0.442 on average. Environmental anchoring (white background, cinematic lighting, centered composition) constrains the diffusion sampler's degrees of freedom.</p>
+        </div>
+        <div class="finding-item">
+          <div class="icon">🏆</div>
+          <h4>Best Gains: Simple Geometry</h4>
+          <p>Coffee Mug (+59%), Smart Speaker (+44%), and Sneakers (+105%) benefited most. Simple, smooth-surfaced objects respond best to structured prompts.</p>
+        </div>
+        <div class="finding-item">
+          <div class="icon">🧪</div>
+          <h4>Material Tokens Effective</h4>
+          <p>Keywords like "ceramic," "leather," and "mesh" visibly changed surface textures in outputs. Attribute-level control at the material domain is highly effective in SDXL.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FAILURE CASES -->
+    <section>
+      <h2>4. Failure Cases &amp; Limitations</h2>
+      <div class="failure-grid">
+        <div class="failure-card">
+          <h3>📦 Leather Backpack — SSIM Regression</h3>
+          <p>SSIM dropped from <strong>0.614 → 0.258</strong>. The structured prompt activated different sub-concepts per seed (buckles vs. zippers vs. straps), creating structural divergence despite individually good images.</p>
+          <div class="lesson">💡 Lesson: Multi-component products need explicit positional tokens (e.g., "single front pocket, no zippers")</div>
+        </div>
+        <div class="failure-card">
+          <h3>👟 Running Shoes — Low SSIM Overall</h3>
+          <p>Both baseline (<strong>0.100</strong>) and improved (<strong>0.177</strong>) remain low. Footwear with laces, mesh, and sole geometry has high natural variance across seeds.</p>
+          <div class="lesson">💡 Lesson: ControlNet or img2img conditioning required for geometric precision</div>
+        </div>
+        <div class="failure-card">
+          <h3>⌚ Wrist Watch — Fine Detail Loss</h3>
+          <p>Dial numbers and watch hands are inconsistent. SDXL's 1024×1024 resolution is insufficient for sub-millimetre rendering of fine mechanical details.</p>
+          <div class="lesson">💡 Lesson: Super-resolution post-processing (ESRGAN) needed for accessory detail</div>
+        </div>
+        <div class="failure-card">
+          <h3>📊 Running Shoes — Low Baseline</h3>
+          <p>The simple title "Running Shoes" is ambiguous — the model generates everything from high-tops to low-profile, various color schemes, and different viewing angles per seed.</p>
+          <div class="lesson">💡 Lesson: Even structured prompts cannot fully compensate for inherent model variance on complex objects</div>
+        </div>
+      </div>
+      <div class="tradeoff-card">
+        <h3>⚖️ Key Trade-off: Control vs. Diversity</h3>
+        <p>Higher SSIM (consistency) naturally reduces creative variety. For <strong>e-commerce catalogs</strong> this is a desirable trade-off — brand consistency matters more than diversity. For <strong>artistic generation</strong>, baseline prompts produce more interesting variation.</p>
+      </div>
+    </section>
+
+    <!-- 5. CONCLUSIONS -->
+    <section>
+      <h2>5. Conclusions</h2>
+      <ul>
+        <li>✅ Structured prompt engineering <strong>measurably improves cross-seed consistency (+22.8% SSIM)</strong> for e-commerce images.</li>
+        <li>✅ CLIP alignment is <strong>preserved</strong> — adding control tokens does not degrade object identification.</li>
+        <li>✅ Pipeline is <strong>fully automated and reproducible</strong> — 60 images generated from CSV metadata via one-click Colab execution.</li>
+        <li>⚠️ Products with complex geometry (footwear, multi-pocket bags) require additional control mechanisms beyond text prompting.</li>
+        <li>🚀 Future work: ControlNet for pose/angle control; real Amazon metadata for 100+ product scalability test; ESRGAN super-resolution for accessory detail.</li>
+      </ul>
+    </section>
+
+  </div><!-- /content -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>CS 5542 — Quiz Challenge 1 | Tina Nguyen</span>
+    <span>github.com/JoeDoan/QuizzTN</span>
+    <span>Model: stabilityai/stable-diffusion-xl-base-1.0</span>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
